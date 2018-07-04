@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".JokeActivity"
+  >
+  
+  <TextView
+    android:id="@+id/joke_tv"
+    android:textSize="@dimen/joke_text_size"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:text="Here some funny joke should appear, but now it seems to be empty."
+    />
+
+</LinearLayout>

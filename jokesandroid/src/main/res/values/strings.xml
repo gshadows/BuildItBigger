@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="no_joke_received">No joke received!</string>
+  <string name="int_err_bad_layout">Internal error: bad activity layout</string>
+</resources>
