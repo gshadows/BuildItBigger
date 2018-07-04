@@ -6,5 +6,4 @@
 /local.properties
 /.idea
 /captures
-/build
-/app/build
+build
