@@ -13,12 +13,12 @@ import java.io.IOException;
 
 
 class JokeRetrieverAsyncTask extends AsyncTask<JokeRetrieverAsyncTask.OnJokeReceivedCallback, Void, String> {
-  public static final String TAG = JokeRetrieverAsyncTask.class.getSimpleName();
+  private static final String TAG = JokeRetrieverAsyncTask.class.getSimpleName();
   
   public interface OnJokeReceivedCallback { void onJokeReceived (String joke); }
   
-  //public static final String ROOT_URL = "http://10.0.2.2:8080/_ah/api/"; // 10.0.2.2 is localhost's IP address in Android emulator
-  public static final String ROOT_URL = "http://192.168.0.2:8080/_ah/api/";
+  // 10.0.2.2 is localhost's IP address in Android emulator
+  private static final String ROOT_URL = "http://10.0.2.2:8080/_ah/api/";
   
   private static MyApi mApiService = null;
   private OnJokeReceivedCallback mCallback;
@@ -32,7 +32,7 @@ class JokeRetrieverAsyncTask extends AsyncTask<JokeRetrieverAsyncTask.OnJokeRece
         .setRootUrl(ROOT_URL)
         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
           @Override
-          public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
+          public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) {
             // Turn off compression when running against local devappserver
             abstractGoogleClientRequest.setDisableGZipContent(true);
           }

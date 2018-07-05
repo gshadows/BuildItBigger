@@ -2,6 +2,8 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,10 +16,21 @@ import com.example.jokesandroid.JokeActivity;
 public class MainActivity extends AppCompatActivity implements JokeRetrieverAsyncTask.OnJokeReceivedCallback {
   
   
+  private SimpleIdlingResource mIdlingResource;
+  
+  
+  @VisibleForTesting
+  public IdlingResource getIdlingResource() {
+    if (mIdlingResource == null) mIdlingResource = new SimpleIdlingResource();
+    return mIdlingResource;
+  }
+  
+  
   @Override
   protected void onCreate (Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    getIdlingResource();
   }
   
   
@@ -46,12 +59,15 @@ public class MainActivity extends AppCompatActivity implements JokeRetrieverAsyn
   
   
   public void tellJoke (View view) {
+    mIdlingResource.setIdleState(false);
     new JokeRetrieverAsyncTask().execute(this);
   }
   
   
   @Override
   public void onJokeReceived (String joke) {
+    mIdlingResource.setIdleState(true);
+    
     if (joke == null) {
       Toast.makeText(this, getString(R.string.failed_retrieve_joke), Toast.LENGTH_SHORT).show();
       return;
