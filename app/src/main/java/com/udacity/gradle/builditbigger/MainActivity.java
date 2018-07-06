@@ -13,11 +13,26 @@ import android.widget.Toast;
 import com.example.jokesandroid.JokeActivity;
 
 
-public class MainActivity extends AppCompatActivity implements JokeRetrieverAsyncTask.OnJokeReceivedCallback {
-  
+public class MainActivity extends AppCompatActivity implements
+    JokeRetrieverAsyncTask.OnJokeReceivedCallback,
+    InterstitialAdsRequester
+{
+  // In free version set by an ad fragment to allow interstitial ads display.
+  // In paid version stays null because no ads should exist.
+  private InterstitialAdDisplay mInterstitialAdDisplay;
   
   private SimpleIdlingResource mIdlingResource;
   
+  
+  /**
+   * In free version called by the fragment to register itself as interstitial ads provider (display).
+   * In free version nobody calls it because ads fragment and all it's code does not exists.
+   * @param display Interstitial ads display (provider) interface.
+   */
+  @Override
+  public void registerInterstitialAdDisplay (InterstitialAdDisplay display) {
+    mInterstitialAdDisplay = display;
+  }
   
   @VisibleForTesting
   public IdlingResource getIdlingResource() {
@@ -59,7 +74,24 @@ public class MainActivity extends AppCompatActivity implements JokeRetrieverAsyn
   
   
   public void tellJoke (View view) {
+    
     mIdlingResource.setIdleState(false);
+    
+    // Try to show interstitial ad first.
+    if (mInterstitialAdDisplay != null) {
+      // Free app shows ad.
+      mInterstitialAdDisplay.showInterstitialAd();
+    } else {
+      // Paid version continues immediately.
+      onInterstitialAdFinished();
+    }
+    
+  }
+  
+  
+  @Override
+  public void onInterstitialAdFinished() {
+    // Start loading joke.
     new JokeRetrieverAsyncTask().execute(this);
   }
   
