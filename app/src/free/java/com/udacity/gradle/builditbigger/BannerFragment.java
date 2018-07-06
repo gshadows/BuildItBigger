@@ -12,19 +12,15 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 
-/**
- * A placeholder fragment containing a simple view.
- */
-public class MainActivityFragment extends Fragment {
+public class BannerFragment extends Fragment {
   
   
-  public MainActivityFragment() {
-  }
+  public BannerFragment() {}
   
   
   @Override
   public View onCreateView (@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    View root = inflater.inflate(R.layout.fragment_main, container, false);
+    View root = inflater.inflate(R.layout.fragment_banner, container, false);
     
     AdView mAdView = root.findViewById(R.id.adView);
     // Create an ad request. Check logcat output for the hashed device ID to

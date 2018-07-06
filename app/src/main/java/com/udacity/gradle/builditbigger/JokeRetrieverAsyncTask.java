@@ -18,7 +18,8 @@ class JokeRetrieverAsyncTask extends AsyncTask<JokeRetrieverAsyncTask.OnJokeRece
   public interface OnJokeReceivedCallback { void onJokeReceived (String joke); }
   
   // 10.0.2.2 is localhost's IP address in Android emulator
-  private static final String ROOT_URL = "http://10.0.2.2:8080/_ah/api/";
+  //private static final String ROOT_URL = "http://10.0.2.2:8080/_ah/api/";
+  private static final String ROOT_URL = "http://192.168.0.2:8080/_ah/api/";
   
   private static MyApi mApiService = null;
   private OnJokeReceivedCallback mCallback;

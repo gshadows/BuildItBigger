@@ -32,6 +32,19 @@ android {
     }
   }
   
+  flavorDimensions "payment"
+  
+  productFlavors {
+    free {
+      dimension "payment"
+      applicationId "com.udacity.gradle.builditbigger.free"
+    }
+    paid {
+      dimension "payment"
+      applicationId "com.udacity.gradle.builditbigger.paid"
+    }
+  }
+  
 }
 
 dependencies {
@@ -41,17 +54,18 @@ dependencies {
   
   endpointsServer project(path: ':backend', configuration: 'endpoints')
   
-  // Android support library.
+  // Main dependencies.
   implementation 'com.android.support:appcompat-v7:27.1.1'
-  implementation 'com.android.support:support-v4:27.1.1'
-  implementation 'com.android.support:customtabs:27.1.1'
-  implementation 'com.android.support:support-media-compat:27.1.1'
-  
-  // Other Google libraries.
-  implementation 'com.google.android.gms:play-services-ads:15.0.1'
   implementation 'com.google.api-client:google-api-client:1.23.0'
   implementation 'com.google.http-client:google-http-client-android:1.23.0'
-  implementation 'com.google.code.findbugs:jsr305:3.0.2'
+  //implementation 'com.google.code.findbugs:jsr305:3.0.2'
+  
+  // Free version: Google ads required.
+  freeImplementation 'com.google.android.gms:play-services-ads:15.0.1'
+  // Next dependencies fixes version conflicts with play-services-ads.
+  freeImplementation 'com.android.support:support-v4:27.1.1'
+  freeImplementation 'com.android.support:customtabs:27.1.1'
+  freeImplementation 'com.android.support:support-media-compat:27.1.1'
   
   // Testing.
   testImplementation 'junit:junit:4.12'
